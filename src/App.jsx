@@ -7,14 +7,19 @@ const App = () => {
   const [task, setTask] = useState([])
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const newTask = { title, completed: false }
+    e.preventDefault();
     if (!title.trim()) return;
-    console.log(title);
-    setTask([...task, newTask])
-    setTitle('')
-  }
+    const newTask = { title, completed: false };
+    setTask([...task, newTask]);
+    setTitle('');
+  };
 
+  const deleteHandler = (index) => {
+    const newTask = [...task]
+    newTask.splice(index, 1)
+    setTask(newTask)
+
+  }
 
   return (
     <div className=" border-t-2 w-screen h-screen bg-zinc-800 flex  items-center flex-col">
@@ -27,7 +32,7 @@ const App = () => {
           1/3
         </div>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="w-[25%] flex justify-between px-5 my-[2%]">
         <input onChange={(e) => setTitle(e.target.value)}
           placeholder="write your next task..."
@@ -38,7 +43,7 @@ const App = () => {
           <IoSendSharp />
         </button>
       </form>
-       
+
       <ul className="list-none w-[25%]">
         {task.map((elem, index) => (
           <li key={index} className="mb-5 flex justify-between items-center border rounded-xl p-5">
@@ -48,7 +53,8 @@ const App = () => {
             </div>
             <div className="flex gap-3 text-2xl text-yellow-100">
               <i className="ri-file-edit-line"></i>
-              <i className="ri-delete-bin-3-line"></i>
+              <button onClick={() => { deleteHandler() }} > <i className="ri-delete-bin-3-line"></i></button>
+
             </div>
           </li>
         ))}
