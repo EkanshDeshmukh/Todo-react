@@ -5,19 +5,24 @@ const App = () => {
 
   const [title, setTitle] = useState("")
   const [task, setTask] = useState([])
+   
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-    const newTask = { title, completed: false };
-    setTask([...task, newTask]);
-    setTitle('');
+    setTask([...task,  { title, completed: false }]);
+    setTitle(" ");
   };
 
   const deleteHandler = (index) => {
     const newTask = [...task]
-    newTask.splice(index, 1)
-    setTask(newTask)
+    let isvalid = false
+    isvalid = confirm('Are you sure you want to delete')
+    if (isvalid || newTask[index].completed) {
+      newTask.splice(index, 1)
+      setTask(newTask)
+    }
+     
 
   }
 
@@ -48,13 +53,12 @@ const App = () => {
         {task.map((elem, index) => (
           <li key={index} className="mb-5 flex justify-between items-center border rounded-xl p-5">
             <div className="flex items-center">
-              <div className="mr-4 rounded-full w-[30px] h-[30px] border border-orange-600"></div>
+              <div className = {`mr-4 rounded-full w-[30px] h-[30px] border-orange-500 `} ></div>
               <h1 className="text-2xl font-extrabold text-yellow-100">{elem.title}</h1>
             </div>
             <div className="flex gap-3 text-2xl text-yellow-100">
               <i className="ri-file-edit-line"></i>
               <button onClick={() => { deleteHandler() }} > <i className="ri-delete-bin-3-line"></i></button>
-
             </div>
           </li>
         ))}
