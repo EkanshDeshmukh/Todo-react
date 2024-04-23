@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { IoSendSharp } from "react-icons/io5";
+import { todocontext } from '../Contexts/Context';
 
 
-const Create = ({ task, setTask }) => {
-    const [title, setTitle] = useState("");
+const Create = () => {
+     const [task,setTask] = useContext(todocontext)
+     const [title, setTitle] = useState("");
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!title.trim()) return;

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { todocontext } from '../Contexts/Context'
 
-const Header = ({ task }) => {
-
+const Header = () => {
+ const [task] = useContext(todocontext)
     //const {task} = props
     return (
         <div className="mt-[7%] w-[25%] h-[20%] border rounded-3xl flex justify-around items-center">

@@ -1,29 +1,33 @@
-const Show = ({tasks,settasks}) => {
+import React, { useContext } from "react";
+import { todocontext } from "../Contexts/Context";
+
+const Show = () => {
+    const [tasks, setTasks] = useContext(todocontext);
 
     const DeleteHandler = (i) => {
         let isValid = false;
         if (!tasks[i].completed) {
-            isValid = confirm("Do you really Want to delete this Task ?");
+            isValid = window.confirm("Do you really Want to delete this Task ?");
         }
 
         if (isValid || tasks[i].completed) {
-            settasks(tasks.filter((task, index) => index !== i));
+            setTasks(tasks.filter((task, index) => index !== i));
         }
     };
 
     const CompleteTaskToggle = (i) => {
         const copyTasks = [...tasks];
         copyTasks[i].completed = !tasks[i].completed;
-        settasks(copyTasks);
+        setTasks(copyTasks);
     };
 
-    let tasksrender = (
+    let tasksRender = (
         <h1 className="text-center text-orange-500 font-extrabold text-2xl">
             No pending Tasks...
         </h1>
     );
     if (tasks.length > 0) {
-        tasksrender = tasks.map((task, index) => {
+        tasksRender = tasks.map((task, index) => {
             return (
                 <li
                     key={index}
@@ -55,7 +59,7 @@ const Show = ({tasks,settasks}) => {
             );
         });
     }
-    return <ul className="list-none w-[35%] ">{tasksrender}</ul>;
+    return <ul className="list-none w-[35%] ">{tasksRender}</ul>;
 };
 
 export default Show;
